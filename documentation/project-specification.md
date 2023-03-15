@@ -9,6 +9,7 @@ Tietojenkäsittelytieteen kandidaatti (TKT)
 ## Project language
 
 Documentation will be in English.
+
 Programming language will be Python.
 
 ## Algorithms used
