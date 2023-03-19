@@ -24,4 +24,4 @@
 
 ## Time spent
 
-- 7 hours
+- 8 hours
