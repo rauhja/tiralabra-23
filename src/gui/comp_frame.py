@@ -1,12 +1,15 @@
+import os
 import customtkinter
-from tkinter import filedialog as fd
 import tkinter as tk
+from tkinter import filedialog as fd
 from gui.components.method import Method
 
 
 class CompFrame(customtkinter.CTkFrame):
     def __init__(self, *args, header_name="Select File", **kwargs):
         super().__init__(*args, **kwargs)
+        
+        self.file_name = None
 
         self.header_name = header_name
         self.text_var = tk.StringVar()
@@ -36,12 +39,17 @@ class CompFrame(customtkinter.CTkFrame):
         self.decomp_button.grid(row=2, column=1, padx=(5, 0), pady=(0, 5))
 
         self.comp_button = customtkinter.CTkButton(
-            self, text="Compress", width=100)
+            self, text="Compress", width=100, command=self._handle_compress)
         self.comp_button.grid(row=2, column=2, sticky="e",
                               padx=(10, 20), pady=(0, 5))
 
     def get_file(self):
         filetypes = (("Text files", "*.txt"), ("Bin files", "*.bin"))
-        filename = fd.askopenfilename(
+        file_path = fd.askopenfilename(
             title="Select a file", filetypes=filetypes)
-        self.text_var.set(filename)
+        self.file_name = os.path.basename(file_path)
+        self.text_var.set(file_path)
+    
+    def _handle_compress(self):
+        print(self.comp_method.get_value())
+        print(self.file_name)
