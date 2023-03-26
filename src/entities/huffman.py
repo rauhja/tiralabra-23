@@ -37,7 +37,7 @@ class HuffmanCoding:
             merged.left = left
             merged.right = right
             heappush(self.heap, merged)
-
+        
     def encode_helper(self, root, current_code):
         if root is None:
             return
@@ -87,7 +87,7 @@ class HuffmanCoding:
         compressed = self.get_compressed_array(extra_bits_data)
         return compressed
 
-huffman = HuffmanCoding()
-text = "Hello World"
-result = huffman.huffman_encode(text)
-print(result)
+# huffman = HuffmanCoding()
+# text = "Hello World"
+# result = huffman.huffman_encode(text)
+# print(result)
