@@ -4,7 +4,11 @@
 
 - Started working on GUI
 - Created Huffman encoding algorithm
-- Started adding unit tests
+- Started implementing unit testing for Huffman encoding algorithm
+
+## Test coverage
+
+![Test coverage](images/week-2-coverage.png)
 
 ## What I learned
 

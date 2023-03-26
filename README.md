@@ -26,3 +26,15 @@ To start the project use the following command:
 ```bash
 poetry run invoke start
 ```
+
+To run the tests use the following command:
+
+```bash
+poetry run invoke test
+```
+
+To run the tests with coverage use the following command:
+
+```bash
+poetry run invoke coverage-report
+```
