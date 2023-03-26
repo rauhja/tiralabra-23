@@ -18,6 +18,7 @@
 
 - Finish Huffman encoding/decoding algorithm
 - Integrate Huffman encoding/decoding algorithm to GUI
+- Improve unit testing for Huffman coding
 
 ## Problems
 
