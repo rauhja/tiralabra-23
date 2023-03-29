@@ -3,13 +3,15 @@ import customtkinter
 import tkinter as tk
 from tkinter import filedialog as fd
 from gui.components.method import Method
+from services.fileservice import FileManagementService
+from services.compressservice import CompressManagement
 
 
 class CompFrame(customtkinter.CTkFrame):
     def __init__(self, *args, header_name="Select File", **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.file_name = None
+        self.filename = None
 
         self.header_name = header_name
         self.text_var = tk.StringVar()
@@ -35,7 +37,7 @@ class CompFrame(customtkinter.CTkFrame):
                               padx=(10, 0), pady=(0, 5))
 
         self.decomp_button = customtkinter.CTkButton(
-            self, text="Decompress", width=100)
+            self, text="Decompress", width=100, command=self._handle_decompress)
         self.decomp_button.grid(row=2, column=1, padx=(5, 0), pady=(0, 5))
 
         self.comp_button = customtkinter.CTkButton(
@@ -44,12 +46,22 @@ class CompFrame(customtkinter.CTkFrame):
                               padx=(10, 20), pady=(0, 5))
 
     def get_file(self):
-        filetypes = (("Text files", "*.txt"), ("Bin files", "*.bin"))
+        filetypes = (("Text files", "*.txt"), ("Compressed files", "*.huff *.lzw"))
         file_path = fd.askopenfilename(
             title="Select a file", filetypes=filetypes)
-        self.file_name = os.path.basename(file_path)
+        self.filename = os.path.basename(file_path)
         self.text_var.set(file_path)
     
     def _handle_compress(self):
-        print(self.comp_method.get_value())
-        print(self.file_name)
+        method = self.comp_method.get_value()
+        try:
+            CompressManagement().compress_file(self.filename, method)
+        except:
+            print("Compress Error")
+
+    def _handle_decompress(self):
+        method = self.comp_method.get_value()
+        try:
+            CompressManagement().decompress_file(self.filename, method)
+        except:
+            print("Decompress Error")
