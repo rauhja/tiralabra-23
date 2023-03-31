@@ -1,4 +1,5 @@
 from heapq import heappush, heappop
+import json
 from services.fileservice import FileManagementService
 
 
@@ -70,12 +71,19 @@ class HuffmanCoding:
         encoded_data = bit_info + encoded_data
         return encoded_data
 
-    def get_compressed_array(self, encoded_data):
+    def get_compressed_array(self, encoded_data, encoded_map):
         bits = bytearray()
         for i in range(0, len(encoded_data), 8):
             byte = encoded_data[i:i+8]
             bits.append(int(byte, 2))
+        bits = encoded_map + bits
+        print(bits)
         return bits
+    
+    def get_encoded_decode_map(self):
+        json_data = json.dumps(self.decode_mapping)
+        encoded_map = json_data.encode("latin-1")
+        return encoded_map
 
     def huffman_encode(self, data):
         freq = self.calc_frequency(data)
@@ -85,34 +93,43 @@ class HuffmanCoding:
 
         encoded_data = self.get_encoded_data(data)
         extra_bits_data = self.get_extra_bits(encoded_data)
-
-        compressed = self.get_compressed_array(extra_bits_data)
+        encoded_decode_map = self.get_encoded_decode_map()
+        compressed = self.get_compressed_array(extra_bits_data, encoded_decode_map)
         return compressed
 
+    def remove_dictionary(self, compressed_data):
+        get_start_idx = compressed_data.index(b'{')
+        get_end_idx = compressed_data.index(b'}', get_start_idx) + 1
+        get_decoder_dict = compressed_data[get_start_idx:get_end_idx]
+        decoder = json.loads(get_decoder_dict.decode("latin-1"))
+        compressed_data = compressed_data[get_end_idx:]
+        return compressed_data, decoder
+    
     def remove_extra_bits(self, bit_string):
         bit_info = bit_string[:8]
         no_extra_bits = int(bit_info, 2)
         bit_string = bit_string[8:]
         return bit_string[:-1 * no_extra_bits]
 
-    def decode_data(self, encoded_data):
+    def decode_data(self, encoded_data, decoder):
         current_code = ""
         decoded_data = ""
         for bit in encoded_data:
             current_code += bit
-            if current_code in self.decode_mapping:
-                character = self.decode_mapping[current_code]
+            if current_code in decoder:
+                character = decoder[current_code]
                 decoded_data += character
                 current_code = ""
         return decoded_data
 
     def huffman_decode(self, compressed_data):
         bit_string = ""
+        compressed_data, decoder = self.remove_dictionary(compressed_data)
         for byte in compressed_data:
             bits = bin(byte)[2:].rjust(8, "0")
             bit_string += bits
         encoded_data = self.remove_extra_bits(bit_string)
-        decoded_data = self.decode_data(encoded_data)
+        decoded_data = self.decode_data(encoded_data, decoder)
         return decoded_data
 
     def huffman_run_analysis(self, data, filename):
