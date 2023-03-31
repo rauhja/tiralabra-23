@@ -39,7 +39,7 @@ class HuffmanCoding:
             merged.left = left
             merged.right = right
             heappush(self.heap, merged)
-        
+
     def encode_helper(self, root, current_code):
         if root is None:
             return
@@ -88,13 +88,13 @@ class HuffmanCoding:
 
         compressed = self.get_compressed_array(extra_bits_data)
         return compressed
-    
+
     def remove_extra_bits(self, bit_string):
         bit_info = bit_string[:8]
         no_extra_bits = int(bit_info, 2)
         bit_string = bit_string[8:]
         return bit_string[:-1 * no_extra_bits]
-    
+
     def decode_data(self, encoded_data):
         current_code = ""
         decoded_data = ""
@@ -105,7 +105,7 @@ class HuffmanCoding:
                 decoded_data += character
                 current_code = ""
         return decoded_data
-    
+
     def huffman_decode(self, compressed_data):
         bit_string = ""
         for byte in compressed_data:
@@ -114,9 +114,11 @@ class HuffmanCoding:
         encoded_data = self.remove_extra_bits(bit_string)
         decoded_data = self.decode_data(encoded_data)
         return decoded_data
-    
+
     def huffman_run_analysis(self, data, filename):
         compressed = self.huffman_encode(data)
-        FileManagementService().create_compressed_file(filename[:-3] + "huff", compressed)
+        FileManagementService().create_compressed_file(
+            filename[:-3] + "huff", compressed)
         decompressed = self.huffman_decode(compressed)
-        FileManagementService().create_txt_file(filename[:-4] + "_decomp.txt", decompressed)    
+        FileManagementService().create_txt_file(
+            filename[:-4] + "_decomp.txt", decompressed)

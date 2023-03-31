@@ -10,7 +10,7 @@ from services.compressservice import CompressManagement
 class CompFrame(customtkinter.CTkFrame):
     def __init__(self, *args, header_name="Select File", **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         self.filename = None
 
         self.header_name = header_name
@@ -46,12 +46,13 @@ class CompFrame(customtkinter.CTkFrame):
                               padx=(10, 20), pady=(0, 5))
 
     def get_file(self):
-        filetypes = (("Text files", "*.txt"), ("Compressed files", "*.huff *.lzw"))
+        filetypes = (("Text files", "*.txt"),
+                     ("Compressed files", "*.huff *.lzw"))
         file_path = fd.askopenfilename(
             title="Select a file", filetypes=filetypes)
         self.filename = os.path.basename(file_path)
         self.text_var.set(file_path)
-    
+
     def _handle_compress(self):
         method = self.comp_method.get_value()
         try:

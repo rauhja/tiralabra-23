@@ -6,6 +6,7 @@ from gui.analysis_frame import AnalysisFrame
 customtkinter.set_appearance_mode("System")
 customtkinter.set_default_color_theme("blue")
 
+
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -26,55 +27,61 @@ class App(customtkinter.CTk):
             self.navigation_frame, text="Lossless \n Compression \n Comparison",
             font=customtkinter.CTkFont(size=15, weight="bold"))
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
-        
+
         self.about_button = customtkinter.CTkButton(self.navigation_frame,
-            corner_radius=0, height=40, border_spacing=10, text="About",
-            fg_color="transparent", text_color=("gray10", "gray90"),
-            hover_color=("gray70", "gray30"), command=self.about_button_event)
+                                                    corner_radius=0, height=40, border_spacing=10, text="About",
+                                                    fg_color="transparent", text_color=("gray10", "gray90"),
+                                                    hover_color=("gray70", "gray30"), command=self.about_button_event)
         self.about_button.grid(row=1, column=0, sticky="ew")
 
         self.compress_button = customtkinter.CTkButton(self.navigation_frame,
-            corner_radius=0, height=40, border_spacing=10, text="Compress/Decompress",
-            fg_color="transparent", text_color=("gray10", "gray90"),
-            hover_color=("gray70", "gray30"), command=self.compress_button_event)
+                                                       corner_radius=0, height=40, border_spacing=10, text="Compress/Decompress",
+                                                       fg_color="transparent", text_color=("gray10", "gray90"),
+                                                       hover_color=("gray70", "gray30"), command=self.compress_button_event)
         self.compress_button.grid(row=3, column=0, sticky="ew")
 
         self.analysis_button = customtkinter.CTkButton(self.navigation_frame,
-            corner_radius=0, height=40, border_spacing=10, text="Run Analysis",
-            fg_color="transparent", text_color=("gray10", "gray90"),
-            hover_color=("gray70", "gray30"), command=self.analysis_button_event)
+                                                       corner_radius=0, height=40, border_spacing=10, text="Run Analysis",
+                                                       fg_color="transparent", text_color=("gray10", "gray90"),
+                                                       hover_color=("gray70", "gray30"), command=self.analysis_button_event)
         self.analysis_button.grid(row=2, column=0, sticky="ew")
 
         self.quit_button = customtkinter.CTkButton(self.navigation_frame,
-            corner_radius=0, height=40, border_spacing=10, text="Quit",
-            fg_color="#FF2511", text_color="white", hover_color=("#BA0F30", "#FF2511"),
-            command=self.quit_button_event)
+                                                   corner_radius=0, height=40, border_spacing=10, text="Quit",
+                                                   fg_color="#FF2511", text_color="white", hover_color=("#BA0F30", "#FF2511"),
+                                                   command=self.quit_button_event)
         self.quit_button.grid(row=5, column=0, sticky="nsew")
 
         self.compressed_frame = CompFrame(self)
         self.analysis_frame = AnalysisFrame(self)
         self.about_frame = AboutFrame(self)
-        
+
         self.select_frame_by_name("about_frame")
 
     def select_frame_by_name(self, name):
-        
-        self.about_button.configure(fg_color=("gray75", "gray25") if name == "about_frame" else "transparent")
-        self.compress_button.configure(fg_color=("gray75", "gray25") if name == "compress_frame" else "transparent")
-        self.analysis_button.configure(fg_color=("gray75", "gray25") if name == "analysis_frame" else "transparent")
-        
+
+        self.about_button.configure(
+            fg_color=("gray75", "gray25") if name == "about_frame" else "transparent")
+        self.compress_button.configure(
+            fg_color=("gray75", "gray25") if name == "compress_frame" else "transparent")
+        self.analysis_button.configure(
+            fg_color=("gray75", "gray25") if name == "analysis_frame" else "transparent")
+
         if name == "compressed_frame":
-            self.compressed_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+            self.compressed_frame.grid(
+                row=0, column=1, padx=20, pady=20, sticky="nsew")
         else:
             self.compressed_frame.grid_forget()
-            
+
         if name == "analysis_frame":
-            self.analysis_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+            self.analysis_frame.grid(
+                row=0, column=1, padx=20, pady=20, sticky="nsew")
         else:
             self.analysis_frame.grid_forget()
-            
+
         if name == "about_frame":
-            self.about_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+            self.about_frame.grid(row=0, column=1, padx=20,
+                                  pady=20, sticky="nsew")
         else:
             self.about_frame.grid_forget()
 
@@ -91,6 +98,7 @@ class App(customtkinter.CTk):
 
     def quit_button_event(self):
         self.quit()
+
 
 if __name__ == "__main__":
     app = App()
