@@ -57,6 +57,7 @@ Time complexity of the LZW algorithm is O(n) where n is the number of characters
 
 - [Wikipedia: Huffman coding](https://en.wikipedia.org/wiki/Huffman_coding)
 - [The University of Auckland: Huffman Encoding](https://www.cs.auckland.ac.nz/software/AlgAnim/huffman.html)
+- [Huffman Encoding & Python Implementation](https://towardsdatascience.com/huffman-encoding-python-implementation-8448c3654328)
 
 **Lempel-Ziv-Welch LZW coding:**
 
