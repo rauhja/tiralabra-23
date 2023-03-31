@@ -1,4 +1,5 @@
 from heapq import heappush, heappop
+from services.fileservice import FileManagementService
 
 
 class HuffmanCoding:
@@ -6,6 +7,7 @@ class HuffmanCoding:
         self.heap = []
         self.codes = {}
         self.freq = {}
+        self.decode_mapping = {}
 
     class HuffmanNode:
         def __init__(self, char, freq):
@@ -44,8 +46,8 @@ class HuffmanCoding:
 
         if root.char is not None:
             self.codes[root.char] = current_code
+            self.decode_mapping[current_code] = root.char
             return
-
         self.encode_helper(root.left, current_code + "0")
         self.encode_helper(root.right, current_code + "1")
 
@@ -86,8 +88,35 @@ class HuffmanCoding:
 
         compressed = self.get_compressed_array(extra_bits_data)
         return compressed
-
-# huffman = HuffmanCoding()
-# text = "Hello World"
-# result = huffman.huffman_encode(text)
-# print(result)
+    
+    def remove_extra_bits(self, bit_string):
+        bit_info = bit_string[:8]
+        no_extra_bits = int(bit_info, 2)
+        bit_string = bit_string[8:]
+        return bit_string[:-1 * no_extra_bits]
+    
+    def decode_data(self, encoded_data):
+        current_code = ""
+        decoded_data = ""
+        for bit in encoded_data:
+            current_code += bit
+            if current_code in self.decode_mapping:
+                character = self.decode_mapping[current_code]
+                decoded_data += character
+                current_code = ""
+        return decoded_data
+    
+    def huffman_decode(self, compressed_data):
+        bit_string = ""
+        for byte in compressed_data:
+            bits = bin(byte)[2:].rjust(8, "0")
+            bit_string += bits
+        encoded_data = self.remove_extra_bits(bit_string)
+        decoded_data = self.decode_data(encoded_data)
+        return decoded_data
+    
+    def huffman_run_analysis(self, data, filename):
+        compressed = self.huffman_encode(data)
+        FileManagementService().create_compressed_file(filename[:-3] + "huff", compressed)
+        decompressed = self.huffman_decode(compressed)
+        FileManagementService().create_txt_file(filename[:-4] + "_decomp.txt", decompressed)    
