@@ -63,3 +63,4 @@ Time complexity of the LZW algorithm is O(n) where n is the number of characters
 
 - [Wikipedia: Lempel-Ziv-Welch](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Welch)
 - [Youtube: Lempel-Ziv-Welch (LZW) Compression - Data Structures](https://www.youtube.com/watch?v=IskLTLrQYag)
+- [LZW compression](https://rosettacode.org/wiki/LZW_compression#Python)
