@@ -77,7 +77,6 @@ class HuffmanCoding:
             byte = encoded_data[i:i+8]
             bits.append(int(byte, 2))
         bits = encoded_map + bits
-        print(bits)
         return bits
     
     def get_encoded_decode_map(self):
@@ -89,6 +88,7 @@ class HuffmanCoding:
         freq = self.calc_frequency(data)
         self.make_heap(freq)
         self.build_huffman_tree()
+        print(self.heap[0])
         self.encode()
 
         encoded_data = self.get_encoded_data(data)
@@ -135,7 +135,14 @@ class HuffmanCoding:
     def huffman_run_analysis(self, data, filename):
         compressed = self.huffman_encode(data)
         FileManagementService().create_compressed_file(
-            filename[:-3] + "huff", compressed)
+            filename[:-3] + "huf", compressed)
         decompressed = self.huffman_decode(compressed)
         FileManagementService().create_txt_file(
-            filename[:-4] + "_decomp.txt", decompressed)
+            filename[:-4] + "_decomp_huf.txt", decompressed)
+        
+# huffman = HuffmanCoding()
+# text = "abacabad"
+# result = huffman.huffman_encode(text)
+# decode_result = huffman.huffman_decode(result)
+# print(result)
+# print(decode_result)
