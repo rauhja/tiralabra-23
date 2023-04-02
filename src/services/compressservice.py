@@ -1,4 +1,5 @@
 from entities.huffman import HuffmanCoding
+from entities.lzw import LZWCoding
 from services.fileservice import FileManagementService
 
 
@@ -6,6 +7,7 @@ class CompressManagement:
     def __init__(self):
         self.filemgmt = FileManagementService()
         self.huffman = HuffmanCoding()
+        self.lzw = LZWCoding()
 
     def compress_file(self, filename, method):
         data = self.filemgmt.get_uncompressed_file(filename)
@@ -28,4 +30,5 @@ class CompressManagement:
 
     def run_analysis(self, filename):
         data = self.filemgmt.get_uncompressed_file(filename)
-        self.huffman.huffman_run_analysis(data, filename)
+        # self.huffman.huffman_run_analysis(data, filename)
+        self.lzw.lzw_run_analysis(data, filename)
