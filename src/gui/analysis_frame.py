@@ -49,7 +49,4 @@ class AnalysisFrame(customtkinter.CTkFrame):
         self.text_var.set(file_path)
 
     def _handle_run_analysis(self):
-        try:
-            CompressManagement().run_analysis(self.filename)
-        except:
-            print("Analysis Error")
+        CompressManagement().run_analysis(self.filename)
