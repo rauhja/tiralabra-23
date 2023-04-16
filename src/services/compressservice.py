@@ -15,6 +15,10 @@ class CompressManagement:
             compress = self.huffman.huffman_encode(data)
             self.filemgmt.create_compressed_file(
                 filename[:-3] + "huff", compress)
+        elif method == "2":
+            compress = self.lzw.lzw_encode(data)
+            self.filemgmt.create_compressed_file(
+                filename[:-3] + "lzw", compress)
         else:
             raise Exception("Invalid method")
 
@@ -25,10 +29,12 @@ class CompressManagement:
             print("decode:", decompress)
             self.filemgmt.create_txt_file(
                 filename[:-5] + "_decomp.txt", decompress)
+        elif method == "2":
+            decompress = self.lzw.lzw_decode(data)
         else:
             raise Exception("Invalid method")
 
     def run_analysis(self, filename):
         data = self.filemgmt.get_uncompressed_file(filename)
-        # self.huffman.huffman_run_analysis(data, filename)
+        self.huffman.huffman_run_analysis(data, filename)
         self.lzw.lzw_run_analysis(data, filename)
