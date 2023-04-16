@@ -22,11 +22,9 @@ class LZWCoding:
                 w = char
         if w:
             compressed_data.append(dict[w])
-        encoded_data = self.encode(compressed_data)
-        return encoded_data
+        return compressed_data
         
     def decompress(self, compressed_data):
-        compressed_data = self.decode(compressed_data)
         dict_size = 256
         dict = {i: chr(i) for i in range(dict_size)}
         decompressed_data = StringIO()
@@ -55,8 +53,9 @@ class LZWCoding:
     
     def lzw_run_analysis(self, data, filename):
         compressed = self.compress(data)
-        print(filename)
-        FM().create_compressed_file(filename[:-3] + "lzw", compressed)
-        decompressed = self.decompress(compressed)
+        encoded_data = self.encode(compressed)
+        FM().create_compressed_file(filename[:-3] + "lzw", encoded_data)
+        decoded_data = self.decode(encoded_data)
+        decompressed = self.decompress(decoded_data)
         FM().create_txt_file(filename[:-4] + "_decomp_lzw.txt", decompressed)
         
