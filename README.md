@@ -8,11 +8,13 @@ Please see the project documentation for more information.
 
 - [Project specification](documentation/project-specification.md)
 - [Testing documentation](documentation/test-documentation.md)
+- [Implementation document](documentation/implementation-document.md)
 
 - Weekly reports:
   - [Week 1](documentation/weekly-report-1.md)
   - [Week 2](documentation/weekly-report-2.md)
   - [Week 3](documentation/weekly-report-3.md)
+  - [Week 4](documentation/weekly-report-4.md)
 
 ## Installation
 
