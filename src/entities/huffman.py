@@ -1,7 +1,6 @@
 from heapq import heappush, heappop
 import json
-from services.fileservice import FileManagementService
-
+from services.fileservice import FileManagementService as FM
 
 class HuffmanCoding:
     def __init__(self):
@@ -88,7 +87,6 @@ class HuffmanCoding:
         freq = self.calc_frequency(data)
         self.make_heap(freq)
         self.build_huffman_tree()
-        print(self.heap[0])
         self.encode()
 
         encoded_data = self.get_encoded_data(data)
@@ -134,15 +132,10 @@ class HuffmanCoding:
 
     def huffman_run_analysis(self, data, filename):
         compressed = self.huffman_encode(data)
-        FileManagementService().create_compressed_file(
+        FM().create_compressed_file(
             filename[:-3] + "huf", compressed)
         decompressed = self.huffman_decode(compressed)
-        FileManagementService().create_txt_file(
+        FM().create_txt_file(
             filename[:-4] + "_decomp_huf.txt", decompressed)
         
-# huffman = HuffmanCoding()
-# text = "abacabad"
-# result = huffman.huffman_encode(text)
-# decode_result = huffman.huffman_decode(result)
-# print(result)
-# print(decode_result)
+
