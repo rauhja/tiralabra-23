@@ -18,7 +18,7 @@ poetry run invoke coverage-report
 
 Current coverage:
 
-![coverage](images/week-4-coverage.png)
+![coverage](images/week-5-coverage.png)
 
 ## Performance tests
 

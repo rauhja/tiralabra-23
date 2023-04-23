@@ -16,6 +16,7 @@ Please see the project documentation for more information.
 - [Week 2](documentation/weekly-report-2.md)
 - [Week 3](documentation/weekly-report-3.md)
 - [Week 4](documentation/weekly-report-4.md)
+- [Week 5](documentation/weekly-report-5.md)
 
 ## Installation
 
