@@ -55,7 +55,8 @@ class LZWCoding:
         compressed = self.compress(data)
         encoded_data = self.encode(compressed)
         FM().create_compressed_file(filename[:-3] + "lzw", encoded_data)
+        compressed_file_size = FM().get_file_size(filename[:-3] + "lzw")
         decoded_data = self.decode(encoded_data)
         decompressed = self.decompress(decoded_data)
         FM().create_txt_file(filename[:-4] + "_decomp_lzw.txt", decompressed)
-        
+        return compressed_file_size

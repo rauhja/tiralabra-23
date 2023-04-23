@@ -134,8 +134,10 @@ class HuffmanCoding:
         compressed = self.huffman_encode(data)
         FM().create_compressed_file(
             filename[:-3] + "huf", compressed)
+        compressed_file_size = FM().get_file_size(filename[:-3] + "huf")
         decompressed = self.huffman_decode(compressed)
         FM().create_txt_file(
             filename[:-4] + "_decomp_huf.txt", decompressed)
+        return compressed_file_size
         
 

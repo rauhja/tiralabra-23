@@ -33,8 +33,15 @@ class CompressManagement:
             decompress = self.lzw.lzw_decode(data)
         else:
             raise Exception("Invalid method")
+        
+    def get_compression_ratio(self, original, compressed):
+        return ((original - compressed) / original) * 100
 
     def run_analysis(self, filename):
         data = self.filemgmt.get_uncompressed_file(filename)
-        self.huffman.huffman_run_analysis(data, filename)
-        self.lzw.lzw_run_analysis(data, filename)
+        original = self.filemgmt.get_file_size(filename)
+        huff_file_size = self.huffman.huffman_run_analysis(data, filename)
+        huff_comp = self.get_compression_ratio(original, huff_file_size)
+        lzw_file_size = self.lzw.lzw_run_analysis(data, filename)
+        lzw_comp = self.get_compression_ratio(original, lzw_file_size)
+        return original, huff_file_size, lzw_file_size, "%.2f" % huff_comp, "%.2f" % lzw_comp

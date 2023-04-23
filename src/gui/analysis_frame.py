@@ -14,6 +14,15 @@ class AnalysisFrame(customtkinter.CTkFrame):
 
         self.text_var = tk.StringVar()
         self.text_var.set("No file selected")
+        
+        self.original_var = tk.StringVar()
+        self.original_var.set("")
+        
+        self.huffman_var = tk.StringVar()
+        self.huffman_var.set("")
+        
+        self.lzw_var = tk.StringVar()
+        self.lzw_var.set("")
 
         self.header = customtkinter.CTkLabel(
             self, text="Analysis", font=customtkinter.CTkFont(size=15, weight="bold"))
@@ -39,6 +48,27 @@ class AnalysisFrame(customtkinter.CTkFrame):
             self, text="Run analysis", width=100, command=self._handle_run_analysis)
         self.run_button.grid(row=3, column=0, sticky="w",
                              padx=(10, 20), pady=(0, 5))
+        
+        self.result_header = customtkinter.CTkLabel(self, text="Results", font=customtkinter.CTkFont(size=15, weight="bold"))
+        self.result_header.grid(row=4, column=0, padx=(10, 10), pady=(10, 5))
+        
+        self.original_label = customtkinter.CTkLabel(self, text="Original file size: ", font=customtkinter.CTkFont(size=12, weight="bold"))
+        self.original_label.grid(row=5, column=0, sticky="w", padx=(10, 10), pady=(10, 0))
+        
+        self.original_size_label = customtkinter.CTkLabel(self, textvariable=self.original_var, font=customtkinter.CTkFont(size=12))
+        self.original_size_label.grid(row=5, column=1, sticky="w", padx=(10, 10), pady=(10, 0))
+        
+        self.huffman_label = customtkinter.CTkLabel(self, text="Huffman file size: ", font=customtkinter.CTkFont(size=12, weight="bold"))
+        self.huffman_label.grid(row=6, column=0, sticky="w", padx=(10, 10))
+        
+        self.huffman_size_label = customtkinter.CTkLabel(self, textvariable=self.huffman_var, font=customtkinter.CTkFont(size=12))
+        self.huffman_size_label.grid(row=6, column=1, sticky="w", padx=(10, 10))
+        
+        self.lzw_label = customtkinter.CTkLabel(self, text="LZW file size: ", font=customtkinter.CTkFont(size=12, weight="bold"))
+        self.lzw_label.grid(row=7, column=0, sticky="w", padx=(10, 10))
+        
+        self.lzw_size_label = customtkinter.CTkLabel(self, textvariable=self.lzw_var, font=customtkinter.CTkFont(size=12))
+        self.lzw_size_label.grid(row=7, column=1, sticky="w", padx=(10, 10))
 
     def get_file(self):
         filetypes = (("Text files", "*.txt"),
@@ -48,4 +78,11 @@ class AnalysisFrame(customtkinter.CTkFrame):
         self.text_var.set(self.file_path)
 
     def _handle_run_analysis(self):
-        CompressManagement().run_analysis(self.file_path)
+        original, huffman, lzw, huff_comp, lzw_comp = CompressManagement().run_analysis(self.file_path)
+        original_string = f"{original} bytes."
+        self.original_var.set(original_string)
+        huffman_string = f"{huffman} bytes. Compression ratio: {huff_comp}%"
+        self.huffman_var.set(huffman_string)
+        lzw_string = f"{lzw} bytes. Compression ratio: {lzw_comp}%"
+        self.lzw_var.set(lzw_string)
+            

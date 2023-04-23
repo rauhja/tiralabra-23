@@ -1,3 +1,5 @@
+import os
+
 class FileManagementService:
     def __init__(self):
         pass
@@ -17,3 +19,6 @@ class FileManagementService:
     def create_txt_file(self, filename, data):
         with open(filename, "w", encoding="utf-8") as uncompressed_file:
             uncompressed_file.write(data)
+
+    def get_file_size(self, filename):
+        return os.path.getsize(filename)
