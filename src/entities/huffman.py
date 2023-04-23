@@ -2,6 +2,7 @@ from heapq import heappush, heappop
 import json
 from services.fileservice import FileManagementService as FM
 
+
 class HuffmanCoding:
     def __init__(self):
         self.heap = []
@@ -77,7 +78,7 @@ class HuffmanCoding:
             bits.append(int(byte, 2))
         bits = encoded_map + bits
         return bits
-    
+
     def get_encoded_decode_map(self):
         json_data = json.dumps(self.decode_mapping)
         encoded_map = json_data.encode("latin-1")
@@ -92,7 +93,8 @@ class HuffmanCoding:
         encoded_data = self.get_encoded_data(data)
         extra_bits_data = self.get_extra_bits(encoded_data)
         encoded_decode_map = self.get_encoded_decode_map()
-        compressed = self.get_compressed_array(extra_bits_data, encoded_decode_map)
+        compressed = self.get_compressed_array(
+            extra_bits_data, encoded_decode_map)
         return compressed
 
     def remove_dictionary(self, compressed_data):
@@ -102,7 +104,7 @@ class HuffmanCoding:
         decoder = json.loads(get_decoder_dict.decode("latin-1"))
         compressed_data = compressed_data[get_end_idx:]
         return compressed_data, decoder
-    
+
     def remove_extra_bits(self, bit_string):
         bit_info = bit_string[:8]
         no_extra_bits = int(bit_info, 2)
@@ -139,5 +141,3 @@ class HuffmanCoding:
         FM().create_txt_file(
             filename[:-4] + "_decomp_huf.txt", decompressed)
         return compressed_file_size
-        
-

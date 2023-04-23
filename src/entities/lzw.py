@@ -2,10 +2,11 @@ from io import StringIO
 import struct
 from services.fileservice import FileManagementService as FM
 
+
 class LZWCoding:
     def __init__(self):
         pass
-    
+
     def compress(self, data):
         dict_size = 256
         dict = {chr(i): i for i in range(dict_size)}
@@ -23,7 +24,7 @@ class LZWCoding:
         if w:
             compressed_data.append(dict[w])
         return compressed_data
-        
+
     def decompress(self, compressed_data):
         dict_size = 256
         dict = {i: chr(i) for i in range(dict_size)}
@@ -42,15 +43,17 @@ class LZWCoding:
             dict_size += 1
             w = entry
         return decompressed_data.getvalue()
-    
+
     def encode(self, compressed_data):
-        binary_data = struct.pack('>%dI' % len(compressed_data), *compressed_data)
+        binary_data = struct.pack('>%dI' % len(
+            compressed_data), *compressed_data)
         return binary_data
-    
+
     def decode(self, encoded_data):
-        decoded_data = list(struct.unpack('>%dI' % (len(encoded_data) // 4), encoded_data))
+        decoded_data = list(struct.unpack('>%dI' %
+                            (len(encoded_data) // 4), encoded_data))
         return decoded_data
-    
+
     def lzw_run_analysis(self, data, filename):
         compressed = self.compress(data)
         encoded_data = self.encode(compressed)
