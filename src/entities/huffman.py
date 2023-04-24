@@ -76,13 +76,12 @@ class HuffmanCoding:
         for i in range(0, len(encoded_data), 8):
             byte = encoded_data[i:i+8]
             bits.append(int(byte, 2))
-        bits = encoded_map + bits
+        map_size = len(encoded_map).to_bytes(2, byteorder='big')
+        bits = map_size + encoded_map + bits
         return bits
 
     def get_encoded_decode_map(self):
-        json_data = json.dumps(self.decode_mapping)
-        encoded_map = json_data.encode("latin-1")
-        return encoded_map
+        return json.dumps(self.decode_mapping).encode(encoding="utf-8", errors="strict")
 
     def huffman_encode(self, data):
         freq = self.calc_frequency(data)
@@ -98,11 +97,10 @@ class HuffmanCoding:
         return compressed
 
     def remove_dictionary(self, compressed_data):
-        get_start_idx = compressed_data.index(b'{')
-        get_end_idx = compressed_data.index(b'}', get_start_idx) + 1
-        get_decoder_dict = compressed_data[get_start_idx:get_end_idx]
-        decoder = json.loads(get_decoder_dict.decode("latin-1"))
-        compressed_data = compressed_data[get_end_idx:]
+        dict_size = int.from_bytes(compressed_data[:2], byteorder='big')
+        get_decoder_dict = compressed_data[2:dict_size+2]
+        decoder = json.loads(get_decoder_dict.decode(encoding="utf-8", errors="strict"))
+        compressed_data = compressed_data[dict_size+2:]
         return compressed_data, decoder
 
     def remove_extra_bits(self, bit_string):
