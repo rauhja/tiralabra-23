@@ -81,7 +81,7 @@ class AnalysisFrame(customtkinter.CTkFrame):
 
     def get_file(self):
         filetypes = (("Text files", "*.txt"),
-                     ("Compressed files", "*.huff *.lzw"))
+                     ("Compressed files", "*.huf *.lzw"))
         self.file_path = fd.askopenfilename(
             title="Select a file", filetypes=filetypes)
         self.text_var.set(self.file_path)

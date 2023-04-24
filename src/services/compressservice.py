@@ -14,22 +14,25 @@ class CompressManagement:
         if method == "1":
             compress = self.huffman.huffman_encode(data)
             self.filemgmt.create_compressed_file(
-                filename[:-3] + "huff", compress)
+                filename[:-3] + "huf", compress)
         elif method == "2":
-            compress = self.lzw.compress(data)
+            compress = self.lzw.run_compress(data)
             self.filemgmt.create_compressed_file(
                 filename[:-3] + "lzw", compress)
         else:
             raise Exception("Invalid method")
 
-    def decompress_file(self, filename, method):
+    def decompress_file(self, filename):
         data = self.filemgmt.get_compressed_file(filename)
-        if method == "1":
+        method = filename[-3:]
+        if method == "huf":
             decompress = self.huffman.huffman_decode(data)
             self.filemgmt.create_txt_file(
-                filename[:-5] + "_decomp.txt", decompress)
-        elif method == "2":
-            decompress = self.lzw.decompress(data)
+                filename[:-4] + "_decomp_huf.txt", decompress)
+        elif method == "lzw":
+            decompress = self.lzw.run_decompress(data)
+            self.filemgmt.create_txt_file(
+                filename[:-4] + "_decomp_lzw.txt", decompress)
         else:
             raise Exception("Invalid method")
 

@@ -6,8 +6,8 @@ class Method(customtkinter.CTkFrame):
         super().__init__(*args, **kwargs)
 
         self.header = customtkinter.CTkLabel(
-            self, text="Method", font=customtkinter.CTkFont(size=15))
-        self.header.grid(row=0, column=0, padx=(0, 0), pady=(5, 5))
+            self, text="Compress Method", font=customtkinter.CTkFont(size=15))
+        self.header.grid(row=0, column=0, padx=(10, 10), pady=(5, 5))
 
         self.method_value = customtkinter.StringVar(value="")
 

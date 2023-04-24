@@ -54,12 +54,33 @@ class LZWCoding:
                             (len(encoded_data) // 4), encoded_data))
         return decoded_data
 
-    def lzw_run_analysis(self, data, filename):
+    def run_compress(self, data):
         compressed = self.compress(data)
         encoded_data = self.encode(compressed)
-        FM().create_compressed_file(filename[:-3] + "lzw", encoded_data)
-        compressed_file_size = FM().get_file_size(filename[:-3] + "lzw")
-        decoded_data = self.decode(encoded_data)
+        return encoded_data
+
+    def run_decompress(self, data):
+        decoded_data = self.decode(data)
         decompressed = self.decompress(decoded_data)
-        FM().create_txt_file(filename[:-4] + "_decomp_lzw.txt", decompressed)
+        return decompressed
+
+    def run_validity_check(self, data, filename):
+        decompressed = FM().get_uncompressed_file(
+            filename[:-4] + "_decomp_lzw.txt")
+        if data == decompressed:
+            return True
+        return False
+
+    def lzw_run_analysis(self, data, filename):
+        compress = self.run_compress(data)
+        FM().create_compressed_file(
+            filename[:-3] + "lzw", compress)
+        compressed_file_size = FM().get_file_size(filename[:-3] + "lzw")
+        compressed_file = FM().get_compressed_file(filename[:-3] + "lzw")
+        decompress = self.run_decompress(compressed_file, filename)
+        FM().create_txt_file(
+            filename[:-4] + "_decomp_lzw.txt", decompress)
+        valid = self.run_validity_check(data, filename)
+        if not valid:
+            raise Exception("Invalid decompression")
         return compressed_file_size
