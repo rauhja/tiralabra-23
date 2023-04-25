@@ -87,11 +87,11 @@ class AnalysisFrame(customtkinter.CTkFrame):
         self.text_var.set(self.file_path)
 
     def _handle_run_analysis(self):
-        original, huffman, lzw, huff_comp, lzw_comp = CompressManagement(
+        original, huffman_size, lzw_size, huff_ratio, lzw_ratio = CompressManagement(
         ).run_analysis(self.file_path)
         original_string = f"{original} bytes."
         self.original_var.set(original_string)
-        huffman_string = f"{huffman} bytes. Compression ratio: {huff_comp:.2f}%"
+        huffman_string = f"{huffman_size} bytes. Space saving: {huff_ratio:.2f}%"
         self.huffman_var.set(huffman_string)
-        lzw_string = f"{lzw} bytes. Compression ratio: {lzw_comp:.2f}%"
+        lzw_string = f"{lzw_size} bytes. Space saving: {lzw_ratio:.2f}%"
         self.lzw_var.set(lzw_string)

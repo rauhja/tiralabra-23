@@ -77,7 +77,7 @@ class LZWCoding:
             filename[:-3] + "lzw", compress)
         compressed_file_size = FM().get_file_size(filename[:-3] + "lzw")
         compressed_file = FM().get_compressed_file(filename[:-3] + "lzw")
-        decompress = self.run_decompress(compressed_file, filename)
+        decompress = self.run_decompress(compressed_file)
         FM().create_txt_file(
             filename[:-4] + "_decomp_lzw.txt", decompress)
         valid = self.run_validity_check(data, filename)
