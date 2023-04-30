@@ -5,11 +5,21 @@ from services.fileservice import FileManagementService
 
 class CompressManagement:
     def __init__(self):
+        """Constructor for CompressManagement class. Initializes the FileManagementService, 
+        the HuffmanCoding and the Lempel-Ziv-Welch class"""
         self.filemgmt = FileManagementService()
         self.huffman = HuffmanCoding()
         self.lzw = LZWCoding()
 
     def compress_file(self, filename, method):
+        """Compresses a file using the Huffman or Lempel-Ziv-Welch algorithm and
+        creates a new file with the compressed data
+
+            Args:
+                filename (str): The name of the file to be compressed
+                method (str): The method to be used for compression. 1 for Huffman,
+                2 for Lempel-Ziv-Welch
+        """
         data = self.filemgmt.get_uncompressed_file(filename)
         if method == "1":
             compress = self.huffman.huffman_encode(data)
@@ -23,6 +33,12 @@ class CompressManagement:
             raise Exception("Invalid method")
 
     def decompress_file(self, filename):
+        """Decompresses a file using the Huffman or Lempel-Ziv-Welch algorithm and creates
+        a new file with the decompressed data.
+
+            Args:
+                filename (str): The name of the file to be decompressed
+        """
         data = self.filemgmt.get_compressed_file(filename)
         method = filename[-3:]
         if method == "huf":
@@ -37,9 +53,24 @@ class CompressManagement:
             raise Exception("Invalid file type")
 
     def get_compression_ratio(self, original, compressed):
+        """Calculates the space saving of a file
+            Args:
+                original (int): The size of the original file
+                compressed (int): The size of the compressed file
+            Returns:
+                float: The space saving in percentage
+        """
         return (1-(compressed / original)) * 100
 
     def run_analysis(self, filename):
+        """Runs analysis on a file using the Huffman and Lempel-Ziv-Welch algorithms.
+            Args:
+                filename (str): The name of the file to be analyzed
+            Returns:
+                tuple: A tuple containing the original file size, the Huffman compressed file size,
+                the Lempel-Ziv-Welch compressed file size, the Huffman space saving and
+                the Lempel-Ziv-Welch space saving.
+        """
         data = self.filemgmt.get_uncompressed_file(filename)
         original = self.filemgmt.get_file_size(filename)
         huff_file_size = self.huffman.huffman_run_analysis(data, filename)
