@@ -39,7 +39,7 @@ The algorithms used are Huffman coding and Lempel-Ziv-Welch LZW coding.
 
 ## Solving the problem
 
-The aim of the project is to compare the two algorithms in terms of compression ratio and time complexity. The algorithms will be implemented in Python. A desired outcome for compression ratio is at least 40-60% of the original file size. File should also be decompressed without losing any information.
+The aim of the project is to compare the two algorithms in terms of compression ratio and time complexity. The algorithms will be implemented in Python. A desired outcome for space saving is at least 40-60% of the original file size. File should also be decompressed without losing any information.
 
 ## Time complexity
 
