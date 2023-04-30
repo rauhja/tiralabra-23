@@ -21,11 +21,12 @@ class TestLZW(unittest.TestCase):
         self.assertEqual(data, result)
         os.remove("test-data/test_decomp_lzw.txt")
         os.remove("test-data/test.lzw")
-    
+
     def test_run_analysis(self):
         data = self.FM.get_uncompressed_file("test-data/gutenberg-top-10.txt")
         self.lzw.lzw_run_analysis(data, "test-data/gutenberg-top-10.txt")
-        result = self.FM.get_uncompressed_file("test-data/gutenberg-top-10_decomp_lzw.txt")
+        result = self.FM.get_uncompressed_file(
+            "test-data/gutenberg-top-10_decomp_lzw.txt")
         self.assertEqual(data, result)
         os.remove("test-data/gutenberg-top-10_decomp_lzw.txt")
         os.remove("test-data/gutenberg-top-10.lzw")

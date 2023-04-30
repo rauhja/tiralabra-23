@@ -33,7 +33,7 @@ class TestHuffman(unittest.TestCase):
         self.assertEqual(self.huffman.heap[0].right.right.char, None)
         self.assertEqual(self.huffman.heap[0].right.right.left.char, 'c')
         self.assertEqual(self.huffman.heap[0].right.right.right.char, 'd')
-    
+
     def test_huffman_run_analysis(self):
         data = self.FM.get_uncompressed_file("test-data/test.txt")
         self.huffman.huffman_run_analysis(data, "test-data/test.txt")
@@ -41,11 +41,13 @@ class TestHuffman(unittest.TestCase):
         self.assertEqual(data, result)
         os.remove("test-data/test_decomp_huf.txt")
         os.remove("test-data/test.huf")
-    
+
     def test_huffman_run_analysis_large_file(self):
         data = self.FM.get_uncompressed_file("test-data/gutenberg-top-10.txt")
-        self.huffman.huffman_run_analysis(data, "test-data/gutenberg-top-10.txt")
-        result = self.FM.get_uncompressed_file("test-data/gutenberg-top-10_decomp_huf.txt")
+        self.huffman.huffman_run_analysis(
+            data, "test-data/gutenberg-top-10.txt")
+        result = self.FM.get_uncompressed_file(
+            "test-data/gutenberg-top-10_decomp_huf.txt")
         self.assertEqual(data, result)
         os.remove("test-data/gutenberg-top-10_decomp_huf.txt")
         os.remove("test-data/gutenberg-top-10.huf")
