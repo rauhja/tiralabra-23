@@ -9,12 +9,6 @@ class TestCompressionService(unittest.TestCase):
         self.compress = CompressManagement()
         self.FM = FileManagementService()
 
-    def test_get_compression_ratio(self):
-        original = 100
-        compressed = 50
-        result = self.compress.get_compression_ratio(original, compressed)
-        self.assertEqual(result, 50)
-
     def test_compress_file_huffman(self):
         filename = "test-data/test.txt"
         method = "1"

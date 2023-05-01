@@ -1,7 +1,7 @@
 import customtkinter
 import tkinter as tk
 from tkinter import filedialog as fd
-from services.compressservice import CompressManagement
+from services.analysisservice import AnalysisService
 
 
 class AnalysisFrame(customtkinter.CTkFrame):
@@ -69,7 +69,7 @@ class AnalysisFrame(customtkinter.CTkFrame):
         self.huffman_size_label = customtkinter.CTkLabel(
             self, textvariable=self.huffman_var, font=customtkinter.CTkFont(size=12))
         self.huffman_size_label.grid(
-            row=6, column=1, sticky="w", padx=(10, 10))
+            row=6, column=1, columnspan=2, sticky="w", padx=(10, 10))
 
         self.lzw_label = customtkinter.CTkLabel(
             self, text="LZW file size: ", font=customtkinter.CTkFont(size=12, weight="bold"))
@@ -77,7 +77,7 @@ class AnalysisFrame(customtkinter.CTkFrame):
 
         self.lzw_size_label = customtkinter.CTkLabel(
             self, textvariable=self.lzw_var, font=customtkinter.CTkFont(size=12))
-        self.lzw_size_label.grid(row=7, column=1, sticky="w", padx=(10, 10))
+        self.lzw_size_label.grid(row=7, column=1, columnspan=2, sticky="w", padx=(10, 10))
 
     def get_file(self):
         filetypes = (("Text files", "*.txt"),
@@ -87,11 +87,11 @@ class AnalysisFrame(customtkinter.CTkFrame):
         self.text_var.set(self.file_path)
 
     def _handle_run_analysis(self):
-        original, huffman_size, lzw_size, huff_ratio, lzw_ratio = CompressManagement(
+        result = AnalysisService(
         ).run_analysis(self.file_path)
-        original_string = f"{original} bytes."
+        original_string = f"{result['original_size']} bytes."
         self.original_var.set(original_string)
-        huffman_string = f"{huffman_size} bytes. Space saving: {huff_ratio:.2f}%"
+        huffman_string = f"{result['huff_comp_size']} bytes. Compress ratio: {result['huff_comp_ratio']:.2f}, Space saving: {result['huff_comp_space_saving']:.2f}% \n Compression time: {result['huff_comp_total']} s. Decompression time: {result['huff_decomp_total']} s."
         self.huffman_var.set(huffman_string)
-        lzw_string = f"{lzw_size} bytes. Space saving: {lzw_ratio:.2f}%"
+        lzw_string = f"{result['lzw_comp_size']} bytes. Compress ratio: {result['lzw_comp_ratio']:.2f}, Space saving: {result['lzw_comp_space_saving']:.2f}%  \n Compression time: {result['lzw_comp_total']} s. Decompression time: {result['lzw_decomp_total']} s."
         self.lzw_var.set(lzw_string)

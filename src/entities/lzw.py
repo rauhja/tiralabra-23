@@ -100,30 +100,3 @@ class LZWCoding:
         decompressed = self.decompress(decoded_data)
         return decompressed
 
-    def run_validity_check(self, data, filename):
-        decompressed = FM().get_uncompressed_file(
-            filename[:-4] + "_decomp_lzw.txt")
-        if data == decompressed:
-            return True
-        return False
-
-    def lzw_run_analysis(self, data, filename):
-        """Runs the analysis for the LZW algorithm and returns the compressed file size.
-            Args:
-                data (str): The string to be analyzed
-                filename (str): The name of the file to be analyzed
-            Returns:
-                compressed_file_size (int): The size of the compressed file
-        """
-        compress = self.run_compress(data)
-        FM().create_compressed_file(
-            filename[:-3] + "lzw", compress)
-        compressed_file_size = FM().get_file_size(filename[:-3] + "lzw")
-        compressed_file = FM().get_compressed_file(filename[:-3] + "lzw")
-        decompress = self.run_decompress(compressed_file)
-        FM().create_txt_file(
-            filename[:-4] + "_decomp_lzw.txt", decompress)
-        valid = self.run_validity_check(data, filename)
-        if not valid:
-            raise Exception("Invalid decompression")
-        return compressed_file_size

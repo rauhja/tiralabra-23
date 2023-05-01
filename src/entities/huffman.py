@@ -205,30 +205,3 @@ class HuffmanCoding:
         encoded_data = self.remove_extra_bits(bit_string)
         decoded_data = self.decode_data(encoded_data, decoder)
         return decoded_data
-
-    def run_validity_check(self, data, filename):
-        decompressed = FM().get_uncompressed_file(
-            filename[:-4] + "_decomp_huf.txt")
-        if data == decompressed:
-            return True
-        return False
-
-    def huffman_run_analysis(self, data, filename):
-        """Runs the Huffman algorithm on the data and returns the compressed file size.
-            Args:
-                data (str): The string to be analyzed
-                filename (str): The name of the file to be analyzed
-            Returns:
-                compressed_file_size (int): The size of the compressed file
-        """
-        compressed = self.huffman_encode(data)
-        FM().create_compressed_file(
-            filename[:-3] + "huf", compressed)
-        compressed_file_size = FM().get_file_size(filename[:-3] + "huf")
-        decompressed = self.huffman_decode(compressed)
-        FM().create_txt_file(
-            filename[:-4] + "_decomp_huf.txt", decompressed)
-        valid = self.run_validity_check(data, filename)
-        if not valid:
-            raise Exception("Invalid decompression")
-        return compressed_file_size

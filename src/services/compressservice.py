@@ -51,30 +51,3 @@ class CompressManagement:
                 filename[:-4] + "_decomp_lzw.txt", decompress)
         else:
             raise Exception("Invalid file type")
-
-    def get_compression_ratio(self, original, compressed):
-        """Calculates the space saving of a file
-            Args:
-                original (int): The size of the original file
-                compressed (int): The size of the compressed file
-            Returns:
-                float: The space saving in percentage
-        """
-        return (1-(compressed / original)) * 100
-
-    def run_analysis(self, filename):
-        """Runs analysis on a file using the Huffman and Lempel-Ziv-Welch algorithms.
-            Args:
-                filename (str): The name of the file to be analyzed
-            Returns:
-                tuple: A tuple containing the original file size, the Huffman compressed file size,
-                the Lempel-Ziv-Welch compressed file size, the Huffman space saving and
-                the Lempel-Ziv-Welch space saving.
-        """
-        data = self.filemgmt.get_uncompressed_file(filename)
-        original = self.filemgmt.get_file_size(filename)
-        huff_file_size = self.huffman.huffman_run_analysis(data, filename)
-        huff_ratio = self.get_compression_ratio(original, huff_file_size)
-        lzw_file_size = self.lzw.lzw_run_analysis(data, filename)
-        lzw_ratio = self.get_compression_ratio(original, lzw_file_size)
-        return original, huff_file_size, lzw_file_size, huff_ratio, lzw_ratio
