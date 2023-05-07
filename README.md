@@ -9,6 +9,7 @@ Please see the project documentation for more information.
 - [Project specification](documentation/project-specification.md)
 - [Testing documentation](documentation/test-documentation.md)
 - [Implementation document](documentation/implementation-document.md)
+- [User guide](documentation/user-guide.md)
 
 ### Weekly reports:
 
@@ -45,4 +46,10 @@ To run the tests with coverage use the following command:
 
 ```bash
 poetry run invoke coverage-report
+```
+
+To run the performance tests use the following command:
+
+```bash
+poetry run invoke performance
 ```
