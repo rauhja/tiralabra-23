@@ -16,7 +16,7 @@ class AnalysisService:
         FM().create_compressed_file(filename[:-3] + "huf", compressed)
         huff_t1 = time.time()
         huff_comp_total = huff_t1 - huff_t0
-        self.log["huff_comp_total"] = f"{huff_comp_total:.2f}"
+        self.log["huff_comp_total"] = huff_t1 - huff_t0
         self.log["huff_comp_size"] = FM().get_file_size(filename[:-3] + "huf")
         self.log["huff_comp_ratio"] = self.get_compression_ratio(self.log["original_size"], self.log["huff_comp_size"])
         self.log["huff_comp_space_saving"] = self.get_space_saving(self.log["original_size"], self.log["huff_comp_size"])
@@ -25,15 +25,13 @@ class AnalysisService:
         decompressed = Huffman().huffman_decode(compressed)
         FM().create_txt_file(filename[:-4] + "_decomp_huf.txt", decompressed)
         huff_t1 = time.time()
-        huff_decomp_total = huff_t1 - huff_t0
-        self.log["huff_decomp_total"] = f"{huff_decomp_total:.2f}"
+        self.log["huff_decomp_total"] = huff_t1 - huff_t0
         
         lzw_t0 = time.time()
         compressed = LZW().run_compress(data)
         FM().create_compressed_file(filename[:-3] + "lzw", compressed)
         lzw_t1 = time.time()
-        lzw_comp_total = lzw_t1 - lzw_t0
-        self.log["lzw_comp_total"] = f"{lzw_comp_total:.2f}"
+        self.log["lzw_comp_total"] = lzw_t1 - lzw_t0
         self.log["lzw_comp_size"] = FM().get_file_size(filename[:-3] + "lzw")
         self.log["lzw_comp_ratio"] = self.get_compression_ratio(self.log["original_size"], self.log["lzw_comp_size"])
         self.log["lzw_comp_space_saving"] = self.get_space_saving(self.log["original_size"], self.log["lzw_comp_size"])
@@ -42,8 +40,7 @@ class AnalysisService:
         decompressed = LZW().run_decompress(compressed)
         FM().create_txt_file(filename[:-4] + "_decomp_lzw.txt", decompressed)
         lzw_t1 = time.time()
-        lzw_decomp_total = lzw_t1 - lzw_t0
-        self.log["lzw_decomp_total"] = f"{lzw_decomp_total:.2f}"
+        self.log["lzw_decomp_total"] = lzw_t1 - lzw_t0
         return self.log
         
         

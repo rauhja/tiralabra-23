@@ -91,7 +91,7 @@ class AnalysisFrame(customtkinter.CTkFrame):
         ).run_analysis(self.file_path)
         original_string = f"{result['original_size']} bytes."
         self.original_var.set(original_string)
-        huffman_string = f"{result['huff_comp_size']} bytes. Compress ratio: {result['huff_comp_ratio']:.2f}, Space saving: {result['huff_comp_space_saving']:.2f}% \n Compression time: {result['huff_comp_total']} s. Decompression time: {result['huff_decomp_total']} s."
+        huffman_string = f"{result['huff_comp_size']} bytes. Compress ratio: {result['huff_comp_ratio']:.2f}, Space saving: {result['huff_comp_space_saving']:.2f}% \n Compression time: {result['huff_comp_total']:.2f} s. Decompression time: {result['huff_decomp_total']:.2f} s."
         self.huffman_var.set(huffman_string)
-        lzw_string = f"{result['lzw_comp_size']} bytes. Compress ratio: {result['lzw_comp_ratio']:.2f}, Space saving: {result['lzw_comp_space_saving']:.2f}%  \n Compression time: {result['lzw_comp_total']} s. Decompression time: {result['lzw_decomp_total']} s."
+        lzw_string = f"{result['lzw_comp_size']} bytes. Compress ratio: {result['lzw_comp_ratio']:.2f}, Space saving: {result['lzw_comp_space_saving']:.2f}%  \n Compression time: {result['lzw_comp_total']:.2f} s. Decompression time: {result['lzw_decomp_total']:.2f} s."
         self.lzw_var.set(lzw_string)
