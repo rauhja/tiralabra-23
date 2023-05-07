@@ -47,11 +47,13 @@ The comparison is performed using different sizes of files. The files contain lo
 | 2097152b  | 1.190s                   | 1123642b                     | 1.87                      | 46.42%               | 2.796s                     | 0.737s               | 1035168b                 | 2.03                  | 50.63%           | 0.171s                 |
 | 4194304b  | 2.349s                   | 2246088b                     | 1.87                      | 46.45%               | 5.504s                     | 1.552s               | 1919708b                 | 2.18                  | 54.23%           | 0.345s                 |
 
+[Space saving graph](../images/space_saving.png)
+
 The results show that Huffman coding is more efficient than LZW coding when file size is between 2kb to 1Mb. Compressed Huffman files also includes the Huffman tree, which is used to decompress the file. This means in some cases the compressed file size is larger than the original file size. This is the case when the file size is less than 2kb. LZW compressed files are encoded using unsigned integers, which means the file size has to be larger than 1Mb to be more efficient than Huffman coding.
 
 ## Improvements
 
-The Problem with The Huffman encoding is that
+The Problem with The Huffman encoding is that dictionary for the decoding is included in the compressed file. This means that the compressed file size is larger than the original file size in some cases. When the original file size increases, the space requirement of the dictionary is smaller in relation to the file to be compressed. Also because using python, all the data has to be stored in the file as bytes instead of bits. This means that the file size is larger than it would be if the file was compressed using a lower level language.
 
 ## Sources
 
