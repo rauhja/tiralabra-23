@@ -53,7 +53,7 @@ The results show that Huffman coding is more efficient than LZW coding when file
 
 ## Improvements
 
-The Problem with The Huffman encoding is that dictionary for the decoding is included in the compressed file. This means that the compressed file size is larger than the original file size in some cases. When the original file size increases, the space requirement of the dictionary is smaller in relation to the file to be compressed. Also because using python, all the data has to be stored in the file as bytes instead of bits. This means that the file size is larger than it would be if the file was compressed using a lower level language.
+The Problem with The Huffman encoding is that dictionary for the decoding is included in the compressed file. This means that the compressed file size is larger than the original file size in some cases. When the original file size increases, the space requirement of the dictionary is smaller in relation to the file to be compressed. Also because using python, all the data has to be stored in the file as bytes instead of single or group of bits which are not divisible of eight. This means that the file size is larger than it would be if the file was compressed using a lower level language.
 
 ## Sources
 
