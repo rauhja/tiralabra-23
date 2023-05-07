@@ -99,4 +99,3 @@ class LZWCoding:
         decoded_data = self.decode(data)
         decompressed = self.decompress(decoded_data)
         return decompressed
-

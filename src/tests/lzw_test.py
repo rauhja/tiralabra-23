@@ -27,9 +27,11 @@ class TestLZW(unittest.TestCase):
     def test_lzw_large(self):
         data = self.FM.get_uncompressed_file("test-data/gutenberg-top-10.txt")
         compress = self.lzw.run_compress(data)
-        self.FM.create_compressed_file("test-data/gutenberg-top-10.lzw", compress)
+        self.FM.create_compressed_file(
+            "test-data/gutenberg-top-10.lzw", compress)
         self.assertTrue(os.path.exists("test-data/gutenberg-top-10.lzw"))
-        comp_file = self.FM.get_compressed_file("test-data/gutenberg-top-10.lzw")
+        comp_file = self.FM.get_compressed_file(
+            "test-data/gutenberg-top-10.lzw")
         result = self.lzw.run_decompress(comp_file)
         self.assertEqual(data, result)
         os.remove("test-data/gutenberg-top-10.lzw")

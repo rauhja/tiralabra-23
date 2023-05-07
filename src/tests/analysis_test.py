@@ -4,12 +4,13 @@ from services.analysisservice import AnalysisService
 from services.compressservice import CompressManagement
 from services.fileservice import FileManagementService
 
+
 class TestAnalysisService(unittest.TestCase):
     def setUp(self):
         self.compress = CompressManagement()
         self.FM = FileManagementService()
         self.analysis = AnalysisService()
-        
+
     def test_analyze_file(self):
         filename = "test-data/test.txt"
         log = self.analysis.run_analysis(filename)

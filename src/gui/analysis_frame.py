@@ -77,7 +77,8 @@ class AnalysisFrame(customtkinter.CTkFrame):
 
         self.lzw_size_label = customtkinter.CTkLabel(
             self, textvariable=self.lzw_var, font=customtkinter.CTkFont(size=12))
-        self.lzw_size_label.grid(row=7, column=1, columnspan=2, sticky="w", padx=(10, 10))
+        self.lzw_size_label.grid(
+            row=7, column=1, columnspan=2, sticky="w", padx=(10, 10))
 
     def get_file(self):
         filetypes = (("Text files", "*.txt"),
